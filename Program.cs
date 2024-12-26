@@ -30,6 +30,7 @@ while (true)
     }
     chatHistory.AddUserMessage(input);
     var chatResult = await chat.GetMessageAsync(chatHistory);
-    Console.Write($"\nAssistant > {chatResult}\n");
+    foreach (var message in chatResult)
+        Console.Write($"\nAssistant > {message}\n");
 }
 

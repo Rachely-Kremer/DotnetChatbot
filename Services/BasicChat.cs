@@ -16,9 +16,19 @@ namespace DotnetChatbot.Services
 
         public void init()
         {
-            var kernelBuilder = Kernel.CreateBuilder().AddOpenAIChatCompletion(
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+
+            var httpClient = new HttpClient(handler);
+
+            var kernelBuilder = Kernel.CreateBuilder()
+                
+                .AddOpenAIChatCompletion(
             modelId: Config.OpenAI.ModelId!,
-            apiKey: Config.OpenAI.ApiKey!);
+            apiKey: Config.OpenAI.ApiKey!,httpClient: httpClient);
+
 
             _kernel = kernelBuilder.Build();
 
@@ -35,7 +45,7 @@ namespace DotnetChatbot.Services
         public async Task<List<string>> GetMessageAsync(ChatHistory chatHistory)
         {
             var response = await chatCompletionService.GetChatMessageContentAsync(chatHistory, openAIPromptExecutionSettings, _kernel);
-            return new List<string>([response.ToString()]);
+            return new List<string>([((ChatMessageContent)response).Content]);
         }
     }
 }
