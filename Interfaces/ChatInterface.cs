@@ -9,10 +9,9 @@ namespace DotnetChatbot.Interfaces
 {
     internal interface ChatInterface
     {
-        internal interface ChatInterface
-        {
-            void init();
-            Task<List<string>> GetMessageAsync(ChatHistory chatHistory);
-        }
+
+        public void init();
+        public Task<List<string>> GetMessageAsync(ChatHistory chatHistory);
+
     }
 }
