@@ -1,3 +1,4 @@
 ﻿Properties/launchSettings.json
 .vs/
-/obj/Debug/net9.0
+obj/
+bin/
